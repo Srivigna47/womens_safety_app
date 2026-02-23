@@ -8,7 +8,7 @@ st.title("🚨 Women's Safety App")
 st.write("Tap the button below to send SOS to emergency contacts.")
 
 # 🔴 ADD YOUR EMERGENCY CONTACT NUMBERS HERE
-phone_numbers = "8317665051,9701523021"
+phone_numbers = "8317665051,8897119368,9701523021"
 
 message = "🚨 SOS! I am in danger. Please help me immediately."
 
