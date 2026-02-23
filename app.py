@@ -1,45 +1,32 @@
 import streamlit as st
-from twilio.rest import Client
-from dotenv import load_dotenv
-import os
+import urllib.parse
 
-# Load environment variables from .env (local) or Streamlit Cloud secrets
-load_dotenv()
-
-st.set_page_config(page_title="Women's Safety App", page_icon="🚨", layout="centered")
+st.set_page_config(page_title="Women's Safety App")
 
 st.title("🚨 Women's Safety App")
-st.write("Send an emergency WhatsApp SOS message to your trusted contacts.")
 
-# Twilio credentials (loaded from env variables)
-TWILIO_SID = os.getenv("TWILIO_SID")
-TWILIO_AUTH = os.getenv("TWILIO_AUTH")
-TWILIO_WHATSAPP = "whatsapp:+14155238886"   # Twilio Sandbox Number
+st.write("Tap the button below to send SOS to emergency contacts.")
 
-# Emergency contacts
-contacts = [
-    "whatsapp:+918317665051",  # Replace with real number
-    "whatsapp:+918897119368"   # Replace with real number
-]
+# 🔴 ADD YOUR EMERGENCY CONTACT NUMBERS HERE
+phone_numbers = "8317665051,8897119368,9701523021"
 
-# Initialize Twilio client
-client = Client(TWILIO_SID, TWILIO_AUTH)
+message = "🚨 SOS! I am in danger. Please help me immediately."
 
-# SOS message input
-sos_message = st.text_area(
-    "✍️ Write your SOS message:",
-    "🚨 SOS! I need help urgently. 📍 Location: https://maps.google.com/"
-)
+encoded_message = urllib.parse.quote(message)
 
-# Send SOS button
-if st.button("📩 Send SOS to All"):
-    for number in contacts:
-        try:
-            message = client.messages.create(
-                body=sos_message,
-                from_=TWILIO_WHATSAPP,
-                to=number
-            )
-            st.success(f"✅ SOS sent to {number}! SID: {message.sid}")
-        except Exception as e:
-            st.error(f"❌ Failed to send SOS to {number}: {e}")
+sms_link = f"sms:{phone_numbers}?body={encoded_message}"
+
+st.markdown(f"""
+<a href="{sms_link}">
+    <button style="
+        background-color:red;
+        color:white;
+        padding:20px;
+        font-size:22px;
+        border-radius:12px;
+        border:none;
+        width:100%;">
+        🚨 SEND SOS
+    </button>
+</a>
+""", unsafe_allow_html=True)
