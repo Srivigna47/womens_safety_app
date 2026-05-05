@@ -1,7 +1,7 @@
 import streamlit as st
 import urllib.parse
 
-st.set_page_config(page_title="Women's Safety App")
+st.set_page_config(page_title="Women's Safety Emergency App")
 
 st.title("🚨 Women's Safety App")
 
