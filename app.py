@@ -10,17 +10,17 @@ st.write("Tap the button below to send SOS to emergency contacts.")
 location = st.text_input("📍 Enter your current location")
 
 # 🔴 ADD YOUR EMERGENCY CONTACT NUMBERS HERE
-phone_numbers = "8317665051,8897119368,9701523021"
+phone_numbers = "8317665051,8897119368s"
 
-if location:
+if location.strip():
     maps_link = f"https://www.google.com/maps/search/{location.replace(' ', '+')}"
     message = f"🚨 SOS! I am in danger. Please help me immediately.\nLocation: {maps_link}"
 else:
     message = "🚨 SOS! I am in danger. Please help me immediately."
 
-encoded_message = urllib.parse.quote(message)
+encoded_message = urllib.parse.quote(message, safe='')
 
-sms_link = f"sms:{phone_numbers}?body={encoded_message}"
+sms_link = f"sms:{phone_numbers}&body={encoded_message}"
 
 st.markdown(f"""
 <a href="{sms_link}">
